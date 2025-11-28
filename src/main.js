@@ -40,7 +40,7 @@ document.querySelector("#app").innerHTML = `
                 class="btn primary"
                 >Descargar CV</a
               >
-              <a href="mailto:tuemail@gmail.com" class="btn primary">Gmail</a>
+              <a href="mailto:rivasalexis1820@gmail.com" class="btn primary">Gmail</a>
             </div>
           </div>
         </div>
