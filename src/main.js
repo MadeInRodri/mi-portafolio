@@ -19,7 +19,7 @@ document.querySelector("#app").innerHTML = `
 
         <div class="hero-container">
           <div class="hero-image">
-            <img src="./src/images/avatar.png" alt="Avatar Rodrigo" />
+            <img src="/images/avatar.png" alt="Avatar Rodrigo" />
           </div>
 
           <div class="hero-content">
@@ -35,7 +35,7 @@ document.querySelector("#app").innerHTML = `
             </div>
             <div class="hero-buttons">
               <a
-                href="./src/assets/CV_Rodrigo_Alexis_Mejia_Rivas.pdf"
+                href="/assets/CV_Rodrigo_Alexis_Mejia_Rivas.pdf"
                 download="CV_Rodrigo_Mejia.pdf"
                 class="btn primary"
                 >Descargar CV</a
@@ -57,7 +57,7 @@ document.querySelector("#app").innerHTML = `
               rel="noreferrer"
             >
               <img
-                src="./src/images/simple-blog.png"
+                src="/images/simple-blog.png"
                 alt="Proyecto Simple Blog"
               />
             </a>
@@ -74,7 +74,7 @@ document.querySelector("#app").innerHTML = `
               rel="noreferrer"
             >
               <img
-                src="./src/images/social-media.png"
+                src="/images/social-media.png"
                 alt="Proyecto Social Media"
               />
             </a>
@@ -90,7 +90,7 @@ document.querySelector("#app").innerHTML = `
               target="_blank"
               rel="noreferrer"
             >
-              <img src="./src/images/list-app.png" alt="Proyecto List App" />
+              <img src="/images/list-app.png" alt="Proyecto List App" />
             </a>
             <div class="project-info">
               <h3>List App</h3>
@@ -105,7 +105,7 @@ document.querySelector("#app").innerHTML = `
               rel="noreferrer"
             >
               <img
-                src="./src/images/calculator.png"
+                src="/images/calculator.png"
                 alt="Proyecto Calculator"
               />
             </a>
@@ -122,7 +122,7 @@ document.querySelector("#app").innerHTML = `
               rel="noreferrer"
             >
               <img
-                src="./src/images/xilotepec.png"
+                src="/images/xilotepec.png"
                 alt="Proyecto Calculator"
               />
             </a>
