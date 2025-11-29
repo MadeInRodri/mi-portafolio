@@ -241,6 +241,40 @@ footer {
   gap: 1rem;
 }
 
+/* --- ANIMACIONES --- */
+
+/* Definimos los pasos de la sacudida.
+   Mueve el elemento ligeramente a la izquierda y derecha
+   y lo rota un poquito para que sea más dinámico. */
+@keyframes shake-animation {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate(-3px, -1px) rotate(-2deg);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate(3px, 1px) rotate(2deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+/* Esta es la clase que activaremos con JS */
+.shake-active {
+  /* Nombre de la animación, duración (0.8s), y tipo de movimiento */
+  animation: shake-animation 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  /* "both" asegura que el elemento mantenga el estado inicial y final */
+}
+
 @media (max-width: 768px) {
   header {
     flex-direction: column;

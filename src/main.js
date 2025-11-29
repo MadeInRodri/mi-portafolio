@@ -19,7 +19,7 @@ document.querySelector("#app").innerHTML = `
 
         <div class="hero-container">
           <div class="hero-image">
-            <img src="/images/avatar.png" alt="Avatar Rodrigo" />
+            <img src="/images/avatar.png" alt="Avatar Rodrigo" style="cursor: pointer;" id="avatar-img" />
           </div>
 
           <div class="hero-content">
@@ -191,3 +191,17 @@ document.querySelector("#app").innerHTML = `
       </div>
     </footer>
 `;
+
+const avatarImage = document.getElementById("avatar-img");
+if (avatarImage) {
+  avatarImage.addEventListener("click", () => {
+    avatarImage.classList.add("shake-active");
+    avatarImage.addEventListener(
+      "animationend",
+      () => {
+        avatarImage.classList.remove("shake-active");
+      },
+      { once: true }
+    );
+  });
+}
