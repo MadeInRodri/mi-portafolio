@@ -131,6 +131,23 @@ document.querySelector("#app").innerHTML = `
               <p>Página principal y menú interactivo de una cafetería.</p>
             </div>
           </article>
+
+          <article class="project-card">
+            <a
+              href="https://leo-and-rodri-solutions.infinityfreeapp.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="/images/service-catalog.png"
+                alt="E-Commerce con PHP"
+              />
+            </a>
+            <div class="project-info">
+              <h3>LEO'S && RODRI'S SOLUTIONS</h3>
+              <p>E-commerce de servicios web realizado con PHP.</p>
+          </article>
+
         </div>
       </section>
 
@@ -201,7 +218,7 @@ if (avatarImage) {
       () => {
         avatarImage.classList.remove("shake-active");
       },
-      { once: true }
+      { once: true },
     );
   });
 }
