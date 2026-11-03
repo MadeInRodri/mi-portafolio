@@ -40,12 +40,12 @@ document.querySelector("#app").innerHTML = `
         <button class="portrait-button" id="avatar-button" type="button" aria-label="Animar el retrato de Rodrigo">
           <img src="/images/avatar.png" alt="" />
         </button>
-        <span class="portrait-index" aria-hidden="true">MX</span>
+        <span class="portrait-index" aria-hidden="true"></span>
       </div>
     </section>
 
     <section id="proyectos" class="projects-section" aria-labelledby="projects-title">
-      <div class="section-heading">
+      <div class="section-heading" data-reveal>
         <div>
           <p class="section-kicker">Trabajo seleccionado</p>
           <h2 id="projects-title">Proyectos</h2>
@@ -59,7 +59,7 @@ document.querySelector("#app").innerHTML = `
     </section>
 
     <section id="habilidades" class="skills-section" aria-labelledby="skills-title">
-      <div class="section-heading">
+      <div class="section-heading" data-reveal>
         <div>
           <p class="section-kicker">Herramientas de trabajo</p>
           <h2 id="skills-title">Habilidades</h2>
@@ -68,7 +68,7 @@ document.querySelector("#app").innerHTML = `
       </div>
 
       <div class="skills-groups">
-        <div class="skill-group">
+        <div class="skill-group" data-reveal>
           <h3>Desarrollo</h3>
           <ul class="skills-list">
             <li><i class="devicon-python-plain colored" aria-hidden="true"></i><span>Python</span></li>
@@ -79,7 +79,7 @@ document.querySelector("#app").innerHTML = `
             <li><i class="devicon-mysql-original colored" aria-hidden="true"></i><span>MySQL</span></li>
           </ul>
         </div>
-        <div class="skill-group">
+        <div class="skill-group" data-reveal>
           <h3>Diseño</h3>
           <ul class="skills-list">
             <li><i class="devicon-bootstrap-plain colored" aria-hidden="true"></i><span>Bootstrap</span></li>
@@ -91,7 +91,7 @@ document.querySelector("#app").innerHTML = `
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" data-reveal>
     <p>¿Tienes un proyecto en mente? <a href="mailto:rivasalexis1820@gmail.com">Hablemos</a>.</p>
     <div class="footer-links">
       <a href="https://github.com/MadeInRodri" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -112,10 +112,34 @@ avatarButton.addEventListener("animationend", () => {
 });
 
 const projectsGrid = document.querySelector("#projects-grid");
+const reduceMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
+let revealObserver;
+
+if ("IntersectionObserver" in window && !reduceMotion) {
+  document.documentElement.classList.add("reveal-enabled");
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px",
+    },
+  );
+
+  document.querySelectorAll("[data-reveal]").forEach((element) => {
+    revealObserver.observe(element);
+  });
+}
 
 function createProjectCard(project) {
   const article = document.createElement("article");
   article.className = "project-card";
+  article.dataset.reveal = "";
 
   const imageLink = document.createElement("a");
   imageLink.className = "project-image-link";
@@ -175,7 +199,9 @@ async function loadProjects() {
   try {
     const response = await fetch(`${import.meta.env.BASE_URL}projects.json`);
     if (!response.ok) {
-      throw new Error(`No se pudo cargar projects.json (HTTP ${response.status})`);
+      throw new Error(
+        `No se pudo cargar projects.json (HTTP ${response.status})`,
+      );
     }
 
     const projects = await response.json();
@@ -191,12 +217,19 @@ async function loadProjects() {
           typeof project.imageAlt !== "string",
       )
     ) {
-      throw new Error("projects.json debe ser una lista de proyectos con todos sus campos.");
+      throw new Error(
+        "projects.json debe ser una lista de proyectos con todos sus campos.",
+      );
     }
 
     projectsGrid.replaceChildren(
       ...projects.map((project) => createProjectCard(project)),
     );
+    if (revealObserver) {
+      projectsGrid.querySelectorAll("[data-reveal]").forEach((element) => {
+        revealObserver.observe(element);
+      });
+    }
     projectsGrid.setAttribute("aria-busy", "false");
   } catch (error) {
     console.error("Error al cargar los proyectos:", error);
