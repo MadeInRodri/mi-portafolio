@@ -11,6 +11,7 @@ Los proyectos se administran desde `public/projects.json`. Agrega un objeto al a
   "title": "Nombre del proyecto",
   "description": "Descripción breve del proyecto.",
   "url": "https://ejemplo.com",
+  "repositoryUrl": "https://github.com/usuario/proyecto",
   "image": "/images/captura.png",
   "imageAlt": "Descripción de la captura para lectores de pantalla"
 }

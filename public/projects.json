@@ -3,6 +3,7 @@
     "title": "Simple Blog",
     "description": "Un blog minimalista creado como proyecto universitario.",
     "url": "https://myblogevangelion.netlify.app",
+    "repositoryUrl": "https://github.com/MadeInRodri/evangelion-blog",
     "image": "/images/simple-blog.png",
     "imageAlt": "Vista previa del proyecto Simple Blog"
   },
@@ -10,6 +11,7 @@
     "title": "Social Media",
     "description": "Una plataforma social interactiva.",
     "url": "https://l1nkup.netlify.app",
+    "repositoryUrl": "https://github.com/MadeInRodri/linkup",
     "image": "/images/social-media.png",
     "imageAlt": "Vista previa del proyecto Social Media"
   },
@@ -17,6 +19,7 @@
     "title": "List App",
     "description": "Una aplicación para organizar tareas y pendientes.",
     "url": "https://milistadecompra.netlify.app",
+    "repositoryUrl": "https://github.com/MadeInRodri/lista-de-compras",
     "image": "/images/list-app.png",
     "imageAlt": "Vista previa del proyecto List App"
   },
@@ -24,6 +27,7 @@
     "title": "Calculator",
     "description": "Una calculadora funcional hecha para la web.",
     "url": "https://rodricalculator.netlify.app",
+    "repositoryUrl": "https://github.com/MadeInRodri/calculator",
     "image": "/images/calculator.png",
     "imageAlt": "Vista previa del proyecto Calculator"
   },
@@ -31,14 +35,16 @@
     "title": "Xilotepec Coffee",
     "description": "Una página y menú interactivo para una cafetería.",
     "url": "https://xilotepecoffee.netlify.app",
+    "repositoryUrl": "https://github.com/MadeInRodri/react-xilotepec-app",
     "image": "/images/xilotepec.png",
     "imageAlt": "Vista previa del sitio de Xilotepec Coffee"
   },
   {
-    "title": "Leo's & Rodri's Solutions",
-    "description": "Un catálogo de servicios web con tienda, desarrollado en PHP.",
-    "url": "https://leo-and-rodri-solutions.infinityfreeapp.com",
-    "image": "/images/service-catalog.png",
-    "imageAlt": "Vista previa del catálogo de servicios web"
+    "title": "Space Adventure",
+    "description": "Un juego de aventuras espaciales con gráficos retro desarrollado en JavaScript.",
+    "url": "https://myspaceadventure.netlify.app",
+    "repositoryUrl": "https://github.com/MadeInRodri/space-adventure",
+    "image": "/images/space-adventure.png",
+    "imageAlt": "Vista previa del juego Space Adventure"
   }
 ]

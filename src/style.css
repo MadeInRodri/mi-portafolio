@@ -353,6 +353,32 @@ main,
   font-size: 0.93rem;
 }
 
+.project-footer {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.project-repository {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  font-weight: 500;
+  transition: color 160ms ease;
+}
+
+.project-repository:hover {
+  color: var(--color-accent);
+}
+
+.project-repository svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
+}
+
 .skills-section {
   padding-bottom: 6rem;
 }

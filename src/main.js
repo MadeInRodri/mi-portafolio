@@ -146,7 +146,26 @@ function createProjectCard(project) {
 
   const description = document.createElement("p");
   description.textContent = project.description;
-  info.append(heading, description);
+  const projectFooter = document.createElement("div");
+  projectFooter.className = "project-footer";
+
+  const repositoryLink = document.createElement("a");
+  repositoryLink.className = "project-repository";
+  repositoryLink.href = project.repositoryUrl;
+  repositoryLink.target = "_blank";
+  repositoryLink.rel = "noopener noreferrer";
+  repositoryLink.setAttribute(
+    "aria-label",
+    `Ver el repositorio de ${project.title}, se abre en una pestaña nueva`,
+  );
+  repositoryLink.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.31-3.76-1.31-.51-1.29-1.24-1.64-1.24-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 .1.22 2.45 2.5 1.92.1-.73.39-1.23.7-1.52-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.11-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.11 2.96.72.78 1.16 1.78 1.16 3 0 4.29-2.62 5.23-5.11 5.51.4.35.76 1.03.76 2.08v3.11c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/>
+    </svg>
+    <span>Ver repositorio</span>
+  `;
+  projectFooter.append(repositoryLink);
+  info.append(heading, description, projectFooter);
   article.append(imageLink, info);
 
   return article;
@@ -167,6 +186,7 @@ async function loadProjects() {
           typeof project.title !== "string" ||
           typeof project.description !== "string" ||
           typeof project.url !== "string" ||
+          typeof project.repositoryUrl !== "string" ||
           typeof project.image !== "string" ||
           typeof project.imageAlt !== "string",
       )
