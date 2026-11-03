@@ -307,6 +307,12 @@ main,
   row-gap: 3rem;
 }
 
+.project-load-message {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--color-muted);
+}
+
 .project-image-link {
   display: block;
   overflow: hidden;

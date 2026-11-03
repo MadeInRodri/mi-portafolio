@@ -53,66 +53,8 @@ document.querySelector("#app").innerHTML = `
         <p class="section-note">Ideas que tomaron forma en la web.</p>
       </div>
 
-      <div class="projects-grid">
-        <article class="project-card">
-          <a class="project-image-link" href="https://myblogevangelion.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Visitar Simple Blog, se abre en una pestaña nueva">
-            <img src="/images/simple-blog.png" alt="Vista previa del proyecto Simple Blog" loading="lazy" />
-          </a>
-          <div class="project-info">
-            <h3><a href="https://myblogevangelion.netlify.app" target="_blank" rel="noopener noreferrer">Simple Blog</a></h3>
-            <p>Un blog minimalista creado como proyecto universitario.</p>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <a class="project-image-link" href="https://l1nkup.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Visitar Social Media, se abre en una pestaña nueva">
-            <img src="/images/social-media.png" alt="Vista previa del proyecto Social Media" loading="lazy" />
-          </a>
-          <div class="project-info">
-            <h3><a href="https://l1nkup.netlify.app" target="_blank" rel="noopener noreferrer">Social Media</a></h3>
-            <p>Una plataforma social interactiva.</p>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <a class="project-image-link" href="https://milistadecompra.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Visitar List App, se abre en una pestaña nueva">
-            <img src="/images/list-app.png" alt="Vista previa del proyecto List App" loading="lazy" />
-          </a>
-          <div class="project-info">
-            <h3><a href="https://milistadecompra.netlify.app" target="_blank" rel="noopener noreferrer">List App</a></h3>
-            <p>Una aplicación para organizar tareas y pendientes.</p>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <a class="project-image-link" href="https://rodricalculator.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Visitar Calculator, se abre en una pestaña nueva">
-            <img src="/images/calculator.png" alt="Vista previa del proyecto Calculator" loading="lazy" />
-          </a>
-          <div class="project-info">
-            <h3><a href="https://rodricalculator.netlify.app" target="_blank" rel="noopener noreferrer">Calculator</a></h3>
-            <p>Una calculadora funcional hecha para la web.</p>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <a class="project-image-link" href="https://xilotepecoffee.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Visitar Xilotepec Coffee, se abre en una pestaña nueva">
-            <img src="/images/xilotepec.png" alt="Vista previa del sitio de Xilotepec Coffee" loading="lazy" />
-          </a>
-          <div class="project-info">
-            <h3><a href="https://xilotepecoffee.netlify.app" target="_blank" rel="noopener noreferrer">Xilotepec Coffee</a></h3>
-            <p>Una página y menú interactivo para una cafetería.</p>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <a class="project-image-link" href="https://leo-and-rodri-solutions.infinityfreeapp.com" target="_blank" rel="noopener noreferrer" aria-label="Visitar Leo's and Rodri's Solutions, se abre en una pestaña nueva">
-            <img src="/images/service-catalog.png" alt="Vista previa del catálogo de servicios web" loading="lazy" />
-          </a>
-          <div class="project-info">
-            <h3><a href="https://leo-and-rodri-solutions.infinityfreeapp.com" target="_blank" rel="noopener noreferrer">Leo's &amp; Rodri's Solutions</a></h3>
-            <p>Un catálogo de servicios web con tienda, desarrollado en PHP.</p>
-          </div>
-        </article>
+      <div class="projects-grid" id="projects-grid" aria-live="polite" aria-busy="true">
+        <p class="project-load-message">Cargando proyectos…</p>
       </div>
     </section>
 
@@ -168,3 +110,83 @@ avatarButton.addEventListener("click", () => {
 avatarButton.addEventListener("animationend", () => {
   avatarButton.classList.remove("shake-active");
 });
+
+const projectsGrid = document.querySelector("#projects-grid");
+
+function createProjectCard(project) {
+  const article = document.createElement("article");
+  article.className = "project-card";
+
+  const imageLink = document.createElement("a");
+  imageLink.className = "project-image-link";
+  imageLink.href = project.url;
+  imageLink.target = "_blank";
+  imageLink.rel = "noopener noreferrer";
+  imageLink.setAttribute(
+    "aria-label",
+    `Visitar ${project.title}, se abre en una pestaña nueva`,
+  );
+
+  const image = document.createElement("img");
+  image.src = project.image;
+  image.alt = project.imageAlt;
+  image.loading = "lazy";
+  imageLink.append(image);
+
+  const info = document.createElement("div");
+  info.className = "project-info";
+
+  const heading = document.createElement("h3");
+  const titleLink = document.createElement("a");
+  titleLink.href = project.url;
+  titleLink.target = "_blank";
+  titleLink.rel = "noopener noreferrer";
+  titleLink.textContent = project.title;
+  heading.append(titleLink);
+
+  const description = document.createElement("p");
+  description.textContent = project.description;
+  info.append(heading, description);
+  article.append(imageLink, info);
+
+  return article;
+}
+
+async function loadProjects() {
+  try {
+    const response = await fetch(`${import.meta.env.BASE_URL}projects.json`);
+    if (!response.ok) {
+      throw new Error(`No se pudo cargar projects.json (HTTP ${response.status})`);
+    }
+
+    const projects = await response.json();
+    if (
+      !Array.isArray(projects) ||
+      projects.some(
+        (project) =>
+          typeof project.title !== "string" ||
+          typeof project.description !== "string" ||
+          typeof project.url !== "string" ||
+          typeof project.image !== "string" ||
+          typeof project.imageAlt !== "string",
+      )
+    ) {
+      throw new Error("projects.json debe ser una lista de proyectos con todos sus campos.");
+    }
+
+    projectsGrid.replaceChildren(
+      ...projects.map((project) => createProjectCard(project)),
+    );
+    projectsGrid.setAttribute("aria-busy", "false");
+  } catch (error) {
+    console.error("Error al cargar los proyectos:", error);
+    const message = document.createElement("p");
+    message.className = "project-load-message";
+    message.textContent =
+      "No se pudieron cargar los proyectos. Revisa el archivo projects.json y vuelve a intentarlo.";
+    projectsGrid.replaceChildren(message);
+    projectsGrid.setAttribute("aria-busy", "false");
+  }
+}
+
+loadProjects();
